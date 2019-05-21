@@ -16,12 +16,10 @@ from copy import deepcopy
 from argparse import Namespace
 import warnings
 
-#%matplotlib inline
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set()
 
-#from causal_meta.modules import networks as nets
 from causal_meta.utils.data_utils import RandomSplineSCM
 
 from causal_meta.utils import train_utils as tu
@@ -218,7 +216,6 @@ def plot_theta(frames, gt_theta, save=False):
         print(i + 1, v, t)
     gt_theta = -gt_theta.item() / (np.pi / 2)
     plt.figure()
-    # plt.plot(its, vals, label=r'$\theta_{\mathcal{E}}$', c='black')
     plt.plot(its, vals, label=r'$\theta_{\mathcal{E}}$')
     plt.plot(its, [gt_theta] * len(its), linestyle='--', label=r'Solution 1 $\left(+\frac{\pi}{4}\right)$')
     plt.plot(its, [gt_theta - 1] * len(its), linestyle='--', label=r'Solution 2 $\left(-\frac{\pi}{4}\right)$')

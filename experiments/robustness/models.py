@@ -81,7 +81,6 @@ class Model1(Model, ModelA2B):
         pi_B_A_th = torch.from_numpy(pi_B_A)
 
         self.p_A.set_ground_truth(pi_A_th)
-        #self.p_A.w.data = torch.log(pi_A_th)
         self.p_B_A.w.data = torch.log(pi_B_A_th)
 
 class Model2(Model, ModelB2A):

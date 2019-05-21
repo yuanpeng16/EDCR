@@ -47,7 +47,6 @@ for k in tnrange(num_training):
             a_loss = -torch.mean(a_model(inputs_A))
             a_loss.backward()
             a_optimizer.step()
-            #print(i, a_loss.item())
 
         pi_A_2 = np.random.dirichlet(np.ones(N))
         x_val = torch.from_numpy(generate_data_categorical(num_test, pi_A_2, pi_B_A))
@@ -63,7 +62,6 @@ for k in tnrange(num_training):
                 val_loss_B_A = -torch.mean(model.model_B_A(x_val))
 
             losses[:, k, j, i] = [val_loss_A_B.item(), val_loss_B_A.item()]
-            #print(val_loss_A_B.item(), val_loss_B_A.item())
 
             loss.backward()
             optimizer.step()

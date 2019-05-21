@@ -44,8 +44,6 @@ for k in tnrange(num_training):
 
     for j in tnrange(num_transfers, leave=False):
         pi_A_2 = np.random.dirichlet(np.ones(N))
-        #for i in range(num_episodes):
-        #    x_transfer = torch.from_numpy(generate_data_categorical(batch_size * (i + 1), pi_A_2, pi_B_A))
         all_x_transfer = torch.from_numpy(generate_data_categorical(batch_size * num_episodes, pi_A_2, pi_B_A))
         for i in range(num_episodes):
             x_transfer = all_x_transfer[:(batch_size * (i + 1))]
@@ -70,7 +68,6 @@ ax.plot(losses_50[1], color='C3', label=r'zero', lw=2)
 ax.fill_between(np.arange(num_episodes), losses_25[1], losses_75[1], color='C3', alpha=0.2)
 ax.set_xlim([0, flat_losses.shape[1] - 1])
 ax.tick_params(axis='both', which='major', labelsize=13)
-#ax.legend(loc=4, prop={'size': 13})
 ax.set_xlabel('Number of transfer examples', fontsize=14)
 ax.set_ylabel(r'$\Delta G$', fontsize=14)
 

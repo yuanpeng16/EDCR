@@ -26,7 +26,6 @@ np.random.seed(4)
 N = args.N
 model = StructuralModel(N, dtype=torch.float64)
 
-#optimizer = torch.optim.SGD(model.modules_parameters(), lr=1e-1)
 meta_optimizer = torch.optim.RMSprop([model.w], lr=1e-2)
 
 num_runs = 100

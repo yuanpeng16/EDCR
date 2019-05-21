@@ -16,12 +16,10 @@ from copy import deepcopy
 from argparse import Namespace
 import warnings
 
-#%matplotlib inline
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set()
 
-#from causal_meta.modules import networks as nets
 from causal_meta.utils.data_utils import RandomSplineSCM
 
 from causal_meta.utils import train_utils as tu
@@ -60,16 +58,6 @@ def xcodergen(opt):
 
 # Test
 rand_scm = RandomSplineSCM(False, True, 8, 8, 3, range_scale=1.)
-
-#plt.figure()
-#plt.title("SCM with Covariate Shift")
-#rand_scm.plot(X=normal(4, 2, 1000), show=False, label='Transfer 0')
-#rand_scm.plot(X=normal(-4, 2, 1000), show=False, label='Transfer 1')
-#rand_scm.plot(X=normal(0, 2, 1000), show=False, label='Train')
-#plt.xlabel("X")
-#plt.ylabel("Y")
-#plt.legend()
-#plt.show()
 
 def plot_key(frames, key, show=True, label=None, name=None):
     its, vals = zip(*[(frame.iter_num, getattr(frame, key)) for frame in frames])
@@ -174,7 +162,6 @@ def encoder_train_shared_regret(opt, model_x2y, model_y2x, scm, encoder, decoder
                                 theta=encoder.theta.item(),
                                 como_time=end-start))
         if meta_iter % 1 == 0:
-            #loss = train_loss + transfer_loss
             loss = transfer_loss
             print(meta_iter, loss.item(), encoder.theta.item(), alpha.item(), transfer_loss.item())
 
@@ -188,7 +175,6 @@ def plot_theta(frames, gt_theta, save=False):
         print(i + 1, v, t)
     gt_theta = -gt_theta.item() / (np.pi / 2)
     plt.figure()
-    # plt.plot(its, vals, label=r'$\theta_{\mathcal{E}}$', c='black')
     plt.plot(its, vals, label=r'$\theta_{\mathcal{E}}$')
     plt.plot(its, [gt_theta] * len(its), linestyle='--', label=r'Solution 1 $\left(+\frac{\pi}{4}\right)$')
     plt.plot(its, [gt_theta - 1] * len(its), linestyle='--', label=r'Solution 2 $\left(-\frac{\pi}{4}\right)$')

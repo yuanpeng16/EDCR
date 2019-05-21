@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '../..')
 
-#%matplotlib inline
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -34,8 +33,6 @@ def get_gradient_norm(model, loss):
     total_norm = total_norm ** (1. / 2)
     return total_norm
 
-#optimizer = torch.optim.SGD(model.modules_parameters(), lr=1.)
-
 losses = np.zeros((2, num_training, num_transfers, num_episodes))
 
 for k in tnrange(num_training):
@@ -48,7 +45,6 @@ for k in tnrange(num_training):
         for i in range(num_episodes):
             x_transfer = all_x_transfer[:(batch_size * (i + 1))]
 
-            #with torch.no_grad():
             val_loss_A_B = -torch.mean(model.model_A_B(x_transfer))
             val_loss_B_A = -torch.mean(model.model_B_A(x_transfer))
 
@@ -58,9 +54,6 @@ for k in tnrange(num_training):
             record = grad_norm_A_B - grad_norm_B_A
 
             losses[:, k, j, i] = [record, 0]
-
-#            loss.backward()
-#            optimizer.step()
 
 flat_losses = -losses.reshape((2, -1, num_episodes))
 losses_25, losses_50, losses_75 = np.percentile(flat_losses, (25, 50, 75), axis=1)
@@ -74,7 +67,6 @@ ax.plot(losses_50[1], color='C3', label=r'zero', lw=2)
 ax.fill_between(np.arange(num_episodes), losses_25[1], losses_75[1], color='C3', alpha=0.2)
 ax.set_xlim([0, flat_losses.shape[1] - 1])
 ax.tick_params(axis='both', which='major', labelsize=13)
-#ax.legend(loc=4, prop={'size': 13})
 ax.set_xlabel('Number of transfer examples', fontsize=14)
 ax.set_ylabel(r'$\Delta \mathcal{L}_2$', fontsize=14)
 
