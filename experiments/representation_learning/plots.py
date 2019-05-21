@@ -19,7 +19,7 @@ def plot(proposed, baseline, num_transfer, y_label, file_name):
 def main():
     baseline = read_data("results/baseline.txt")
     proposed = read_data("results/proposed.txt")
-    plot(proposed[1], baseline[1], min(500, len(baseline[0])), 'Encoder Angle [$\pi$/2 rad]', "results/theta.pdf")
+    plot(proposed[1], baseline[1], min(800, len(baseline[0])), 'Encoder Angle [$\pi$/2 rad]', "results/theta.pdf")
 
 if __name__ == '__main__':
     main()
