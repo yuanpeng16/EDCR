@@ -59,16 +59,17 @@ for k in tnrange(num_training):
 flat_losses = -losses.reshape((2, -1, num_episodes))
 losses_25, losses_50, losses_75 = np.percentile(flat_losses, (25, 50, 75), axis=1)
 
-plt.figure(figsize=(9, 5))
+plt.figure(figsize=(18, 12))
 
 ax = plt.subplot(1, 1, 1)
-ax.plot(losses_50[0], color='C0', label=r'difference', lw=2)
+ax.plot(losses_50[0], color='C0', label=r'difference', lw=6)
 ax.fill_between(np.arange(num_episodes), losses_25[0], losses_75[0], color='C0', alpha=0.2)
-ax.plot(losses_50[1], color='C3', label=r'zero', lw=2)
+ax.plot(losses_50[1], color='C3', label=r'zero', lw=6)
 ax.fill_between(np.arange(num_episodes), losses_25[1], losses_75[1], color='C3', alpha=0.2)
 ax.set_xlim([0, flat_losses.shape[1] - 1])
-ax.tick_params(axis='both', which='major', labelsize=13)
-ax.set_xlabel('Number of transfer examples', fontsize=14)
-ax.set_ylabel(r'$\Delta G$', fontsize=14)
+ax.tick_params(axis='both', which='major', labelsize=36)
+ax.set_xlabel(r'Number of examples ($\times$100)', fontsize=40)
+#ax.set_ylabel(r'$\mathcal{G}_{B \rightarrow A} - \mathcal{G}_{A \rightarrow B}$', fontsize=48)
+ax.set_ylabel(r'$\Delta \mathcal{G}$', fontsize=40)
 
 plt.show()
