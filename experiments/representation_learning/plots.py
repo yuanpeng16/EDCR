@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from utils import read_data
 
 def plot(proposed, baseline, num_transfer, y_label, file_name):
-    fig = plt.figure(figsize=(17, 11))
+    fig = plt.figure(figsize=(18, 12))
     ax = plt.subplot(1, 1, 1)
 
     ax.tick_params(axis='both', which='major', labelsize=36)
