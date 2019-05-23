@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '../..')
 
-#%matplotlib inline
 import argparse
 import numpy as np
 import torch
@@ -22,7 +21,7 @@ N = args.N
 model = StructuralModel(N, dtype=torch.float64)
 
 num_episodes = 100
-batch_size = 1 # 1
+batch_size = 100 # 1
 num_test = 10000
 num_training = 10 # 100
 num_transfers = 10 # 100
@@ -62,14 +61,14 @@ losses_25, losses_50, losses_75 = np.percentile(flat_losses, (25, 50, 75), axis=
 plt.figure(figsize=(18, 12))
 
 ax = plt.subplot(1, 1, 1)
-ax.plot(losses_50[0], color='C0', label=r'difference', lw=6)
+ax.plot(losses_50[0], color='C0', label='Score', lw=6)
 ax.fill_between(np.arange(num_episodes), losses_25[0], losses_75[0], color='C0', alpha=0.2)
-ax.plot(losses_50[1], color='C3', label=r'zero', lw=6)
+ax.plot(losses_50[1], color='C3', label='Zero', lw=6)
 ax.fill_between(np.arange(num_episodes), losses_25[1], losses_75[1], color='C3', alpha=0.2)
 ax.set_xlim([0, flat_losses.shape[1] - 1])
 ax.tick_params(axis='both', which='major', labelsize=36)
+ax.legend(loc=4, prop={'size': 36})
 ax.set_xlabel(r'Number of examples ($\times$100)', fontsize=40)
-#ax.set_ylabel(r'$\mathcal{G}_{B \rightarrow A} - \mathcal{G}_{A \rightarrow B}$', fontsize=48)
-ax.set_ylabel(r'$\Delta \mathcal{G}$', fontsize=40)
+ax.set_ylabel(r'$\mathcal{S}_\mathcal{G}}$', fontsize=40)
 
 plt.show()

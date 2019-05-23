@@ -8,10 +8,11 @@ def plot(proposed, baseline, num_transfer, y_label, file_name, lines):
     ax.tick_params(axis='both', which='major', labelsize=36)
     for line in lines:
         ax.axhline(line, lw=6, c='lightgray', ls='--', zorder=0)
-    ax.plot(proposed, lw=6, color='green', zorder=2)
-    ax.plot(baseline, lw=6, color='orange', zorder=1)
+    ax.plot(proposed, lw=6, color='green', zorder=2, label='Proposed')
+    ax.plot(baseline, lw=6, color='orange', zorder=1, label='Baseline')
 
     ax.set_xlim([0, num_transfer - 1])
+    ax.legend(loc=4, prop={'size': 36})
     ax.set_xlabel('Number of episodes', fontsize=48)
     ax.set_ylabel(y_label, fontsize=48)
     plt.savefig(file_name)

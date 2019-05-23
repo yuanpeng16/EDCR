@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '../..')
 
-#%matplotlib inline
 import argparse
 import numpy as np
 import torch
@@ -78,7 +77,6 @@ ax.plot(losses_50[1], color='C3', label=r'$B \rightarrow A$', lw=6)
 ax.fill_between(np.arange(num_episodes), losses_25[1], losses_75[1], color='C3', alpha=0.2)
 ax.set_xlim([0, flat_losses.shape[1] - 1])
 ax.tick_params(axis='both', which='major', labelsize=36)
-#ax.legend(loc=4, prop={'size': 13})
 ax.legend(loc=4, prop={'size': 36})
 ax.set_xlabel(r'Number of examples ($\times$100)', fontsize=40)
 ax.set_ylabel(r'$\log P(D\mid \cdot \rightarrow \cdot)$', fontsize=40)

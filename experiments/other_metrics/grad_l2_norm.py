@@ -68,6 +68,6 @@ ax.fill_between(np.arange(num_episodes), losses_25[1], losses_75[1], color='C3',
 ax.set_xlim([0, flat_losses.shape[1] - 1])
 ax.tick_params(axis='both', which='major', labelsize=36)
 ax.set_xlabel(r'Number of examples ($\times$100)', fontsize=40)
-ax.set_ylabel(r'$\Delta L_2$', fontsize=40)
+ax.set_ylabel(r'$\mathcal{S}_{L_2}$', fontsize=40)
 
 plt.show()
