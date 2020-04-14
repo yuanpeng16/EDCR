@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ## Main Experiments
 Causality direction prediction
 ```
-cd comparison_experiments/direction_prediction
+cd experiments/direction_prediction
 python baseline.py
 python proposed.py
 python plots.py
@@ -25,7 +25,7 @@ python plots.py
 
 Representation learning
 ```
-cd comparison_experiments/representation_learning
+cd experiments/representation_learning
 python3 baseline.py
 python3 proposed.py
 python3 plots.py
@@ -33,7 +33,7 @@ python3 plots.py
 
 Robustness
 ```
-cd comparison_experiments/counter_example_discrete
+cd experiments/counter_example_discrete
 python baseline.py
 python proposed.py
 ```
@@ -41,7 +41,7 @@ python proposed.py
 ## Appendix experiments
 Causality direction prediction with N=100
 ```
-cd comparison_experiments/direction_prediction/
+cd experiments/direction_prediction/
 python baseline.py --N 100
 python proposed.py --N 100
 python plots_N=100.py
@@ -49,14 +49,14 @@ python plots_N=100.py
 
 Causality direction prediction with continuous variable
 ```
-cd comparison_experiments/direction_prediction_continuous
+cd experiments/direction_prediction_continuous
 python baseline.py
 python proposed.py
 ```
 
 Other metrics
 ```
-cd comparison_experiments/other_metrics
+cd experiments/other_metrics
 python kl_divergence.py
 python grad_l2_norm.py
 ```

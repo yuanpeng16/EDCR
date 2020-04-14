@@ -4,3 +4,4 @@ jupyter
 tqdm
 matplotlib
 scipy
+seaborn
