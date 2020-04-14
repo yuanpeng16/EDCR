@@ -40,8 +40,9 @@ def main():
     proposed = np.mena(proposed, axis=0)
     proposed[:,0] = proposed[:,0] / (np.pi / 2)
 
-    plot_iter(proposed, baseline, min(800, len(baseline[:,0])), "results/representation_runs_iter.pdf")
-    plot_time(proposed, baseline, min(800, len(baseline[:,0])), "results/representation_runs_time.pdf")
+    num_transfer = min(800, len(baseline[:,0]))
+    plot_iter(proposed, baseline, num_transfer, "results/representation_runs_iter.pdf")
+    plot_time(proposed, baseline, num_transfer, "results/representation_runs_time.pdf")
 
 if __name__ == '__main__':
     main()
