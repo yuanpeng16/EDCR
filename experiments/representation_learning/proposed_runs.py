@@ -221,5 +221,7 @@ for run_iter in range(opt.NUM_RUNS):
 
     frames[run_iter,:] = encoder_train_shared_regret(opt, model_x2y, model_y2x, rand_scm, encoder, gt_decoder, alpha)
 
-    if run_iter % 5 == 0:
+    if (run_iter+1) % 5 == 0:
         np.save('results/proposed', frames)
+
+np.save('results/proposed', frames)

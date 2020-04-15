@@ -243,5 +243,7 @@ for iter_run in range(opt.NUM_RUNS):
 
     frames[iter_run,:] = encoder_train_shared_regret(opt, model_x2y, model_y2x, rand_scm, encoder, gt_decoder, alpha)
 
-    if iter_run % 5 == 0:
+    if (iter_run+1) % 5 == 0:
         np.save('results/baseline', frames)
+
+np.save('results/baseline', frames)
