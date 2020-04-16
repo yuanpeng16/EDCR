@@ -66,3 +66,9 @@ Real data
 cd experiments/altitude_temperature
 python altitude_temperature.py
 ```
+
+Multi variable
+```buildoutcfg
+cd experiments/multi_variable$
+python multi_variable.py
+```
