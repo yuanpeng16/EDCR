@@ -64,5 +64,5 @@ python grad_l2_norm.py
 Real data
 ```buildoutcfg
 cd experiments/altitude_temperature
-python3 altitude_temperature.py
+python altitude_temperature.py
 ```
