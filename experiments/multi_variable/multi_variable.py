@@ -14,6 +14,7 @@ from utils import write_data
 parser = argparse.ArgumentParser()
 parser.add_argument('--proposed', action='store_true', default=False,
                     help='use proposed method')
+parser.add_argument('--repeats', type=int, default=100, help='num experiments')
 parser.add_argument('--m', type=int, default=10, help='num variabless')
 parser.add_argument('--N', type=int, default=10, help='num units')
 parser.add_argument('--max_adaptation_steps', type=int, default=500, help='maximum number of steps in adaptation.')
@@ -29,7 +30,7 @@ model = StructuralModel(N, dtype=torch.float64)
 
 meta_optimizer = torch.optim.RMSprop([model.w], lr=1e-2)
 
-repeats = 5
+repeats = args.repeats
 num_runs = (m * (m - 1)) // 2
 num_training = 1
 num_transfer = args.max_adaptation_steps
