@@ -72,3 +72,9 @@ Multi variable
 cd experiments/multi_variable
 python multi_variable.py
 ```
+
+Changing condition
+```buildoutcfg
+cd experiments/changing_condition
+python changing_condition.py
+```
