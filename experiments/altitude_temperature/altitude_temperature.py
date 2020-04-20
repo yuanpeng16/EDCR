@@ -1,5 +1,6 @@
 import argparse
 import random
+import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
 
@@ -48,9 +49,17 @@ def get_generalization_loss(data_train, data_transfer):
     return generalization_loss
 
 
-def experiment(data):
+def add_noise(data, noise_std):
+    data = np.asarray(data)
+    data = np.random.normal(data, noise_std)
+    return data
+
+def experiment(data, noise_std):
     # prepare data
     data_train_AB, data_transfer_AB = separate_distributions(data)
+    if noise_std > 0:
+        data_train_AB = add_noise(data_train_AB, noise_std)
+        data_transfer_AB = add_noise(data_transfer_AB, noise_std)
     data_train_BA = [[x[1], x[0]] for x in data_train_AB]
     data_transfer_BA = [[x[1], x[0]] for x in data_transfer_AB]
 
@@ -60,7 +69,6 @@ def experiment(data):
     score = gen_loss_BA - gen_loss_AB
     result = score > 0
     return 1 if result else 0
-
 
 def main(args):
     # load data
@@ -79,7 +87,7 @@ def main(args):
     # run experiments
     success = 0
     for _ in range(args.experiments):
-        success += experiment(data)
+        success += experiment(data, args.noise)
     success_rate = (100.0 * success) / args.experiments
     print('Success rate is', success_rate, '% (', success, 'out of',
           args.experiments, 'are correct )')
@@ -95,6 +103,8 @@ if __name__ == '__main__':
                         help='scale data')
     parser.add_argument('--scale', type=float, default=1,
                         help='scaling')
+    parser.add_argument('--noise', type=float, default=0,
+                        help='std of noise')
 
     args = parser.parse_args()
     main(args)

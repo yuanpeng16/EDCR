@@ -89,3 +89,8 @@ python altitude_temperature.py --balance_scale --scale 10
 # Y has 0.1 times scale of X.
 python altitude_temperature.py --balance_scale --scale 0.1
 ```
+
+Noise
+```buildoutcfg
+python altitude_temperature.py --balance_scale --noise 1.0
+```
