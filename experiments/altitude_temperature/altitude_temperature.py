@@ -1,6 +1,7 @@
 import argparse
 import random
 from sklearn.linear_model import LinearRegression
+from sklearn import preprocessing
 
 
 class Model(object):
@@ -16,10 +17,7 @@ class Model(object):
 
     def test(self, data):
         X, y = self.prepare_data(data)
-        y_hat = self.reg.predict(X)
-        assert len(y) == len(y_hat)
-        loss = sum([(a - b) ** 2 for a, b in zip(y, y_hat)]) / (2 * len(y))
-        return loss
+        return 1 - self.reg.score(X, y)
 
 
 def separate_distributions(data):
@@ -69,6 +67,14 @@ def main(args):
     with open(args.file_name, 'r') as f:
         lines = f.readlines()
     data = [[float(x) for x in line.strip().split(' ')] for line in lines]
+    if args.balance_scale or args.scale != 1:
+        X, Y = list(zip(*data))
+        if args.balance_scale:
+            X = preprocessing.scale(X)
+            Y = preprocessing.scale(Y)
+        if args.scale != 1:
+            Y *= args.scale
+        data = list(zip(X, Y))
 
     # run experiments
     success = 0
@@ -85,5 +91,10 @@ if __name__ == '__main__':
                         help='input file')
     parser.add_argument('--experiments', type=int, default=1000,
                         help='number of experiments')
+    parser.add_argument('--balance_scale', action='store_true', default=False,
+                        help='scale data')
+    parser.add_argument('--scale', type=float, default=1,
+                        help='scaling')
+
     args = parser.parse_args()
     main(args)
