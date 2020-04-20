@@ -115,8 +115,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compositional Instructions.')
-    parser.add_argument('--file_name', type=str, default='pair0001.txt',
-                        help='input file')
+    parser.add_argument('--file_name', type=str,
+                        default='altitude_temperature.txt', help='input file')
     parser.add_argument('--experiments', type=int, default=1000,
                         help='number of experiments')
     parser.add_argument('--balance_scale', action='store_true', default=False,
