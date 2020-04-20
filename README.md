@@ -102,3 +102,9 @@ cd experiments/altitude_temperature
 # Two hidden layers
 python altitude_temperature.py --balance_scale --hidden_layers 2
 ```
+
+Multidimensional variable
+```buildoutcfg
+cd experiments/altitude_temperature
+python altitude_temperature.py --balance_scale --file_name data/pair0055.txt
+```
