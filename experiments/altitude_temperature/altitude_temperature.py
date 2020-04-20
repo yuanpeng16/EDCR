@@ -2,10 +2,17 @@ import argparse
 import random
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from sklearn.neural_network import MLPRegressor
 from sklearn import preprocessing
 
 
 class Model(object):
+    def __init__(self, args):
+        self.args = args
+
+    def get_model(self):
+        return LinearRegression()
+
     def prepare_data(self, data):
         X, y = list(zip(*data))
         X = [[a] for a in X]
@@ -13,12 +20,18 @@ class Model(object):
 
     def train(self, data):
         X, y = self.prepare_data(data)
-        self.reg = LinearRegression().fit(X, y)
-        return self.reg.coef_, self.reg.intercept_
+        self.reg = self.get_model().fit(X, y)
 
     def test(self, data):
         X, y = self.prepare_data(data)
         return 1 - self.reg.score(X, y)
+
+
+class NNModel(Model):
+    def get_model(self):
+        hidden_layer_sizes = [100] * self.args.hidden_layers
+        return MLPRegressor(hidden_layer_sizes=hidden_layer_sizes,
+                            max_iter=1000)
 
 
 def separate_distributions(data):
@@ -40,8 +53,11 @@ def separate_distributions(data):
     return data_train, data_transfer
 
 
-def get_generalization_loss(data_train, data_transfer):
-    model = Model()
+def get_generalization_loss(args, data_train, data_transfer):
+    if args.hidden_layers == 0:
+        model = Model(args)
+    else:
+        model = NNModel(args)
     model.train(data_train)
     loss_train = model.test(data_train)
     loss_transfer = model.test(data_transfer)
@@ -54,7 +70,8 @@ def add_noise(data, noise_std):
     data = np.random.normal(data, noise_std)
     return data
 
-def experiment(data, noise_std):
+
+def experiment(args, data, noise_std):
     # prepare data
     data_train_AB, data_transfer_AB = separate_distributions(data)
     if noise_std > 0:
@@ -64,11 +81,14 @@ def experiment(data, noise_std):
     data_transfer_BA = [[x[1], x[0]] for x in data_transfer_AB]
 
     # compute losses and results
-    gen_loss_AB = get_generalization_loss(data_train_AB, data_transfer_AB)
-    gen_loss_BA = get_generalization_loss(data_train_BA, data_transfer_BA)
+    gen_loss_AB = get_generalization_loss(args, data_train_AB,
+                                          data_transfer_AB)
+    gen_loss_BA = get_generalization_loss(args, data_train_BA,
+                                          data_transfer_BA)
     score = gen_loss_BA - gen_loss_AB
     result = score > 0
     return 1 if result else 0
+
 
 def main(args):
     # load data
@@ -87,7 +107,7 @@ def main(args):
     # run experiments
     success = 0
     for _ in range(args.experiments):
-        success += experiment(data, args.noise)
+        success += experiment(args, data, args.noise)
     success_rate = (100.0 * success) / args.experiments
     print('Success rate is', success_rate, '% (', success, 'out of',
           args.experiments, 'are correct )')
@@ -105,6 +125,7 @@ if __name__ == '__main__':
                         help='scaling')
     parser.add_argument('--noise', type=float, default=0,
                         help='std of noise')
-
+    parser.add_argument('--hidden_layers', type=int, default=0,
+                        help='number of hidden layers')
     args = parser.parse_args()
     main(args)

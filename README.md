@@ -92,5 +92,13 @@ python altitude_temperature.py --balance_scale --scale 0.1
 
 Noise
 ```buildoutcfg
+cd experiments/altitude_temperature
 python altitude_temperature.py --balance_scale --noise 1.0
+```
+
+Network architecture
+```buildoutcfg
+cd experiments/altitude_temperature
+# Two hidden layers
+python altitude_temperature.py --balance_scale --hidden_layers 2
 ```
