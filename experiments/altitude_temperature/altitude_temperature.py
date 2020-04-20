@@ -90,11 +90,27 @@ def experiment(args, data, noise_std):
     return 1 if result else 0
 
 
+def is_reverse(file_name):
+    if len(file_name) < 5 or not file_name.startswith('data/'):
+        return False
+    key = file_name[5:13]
+    with open('data/README', 'r') as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if line.startswith(key):
+            return '<-' in line
+    assert False
+
+
 def main(args):
     # load data
     with open(args.file_name, 'r') as f:
         lines = f.readlines()
-    data = [[float(x) for x in line.strip().split(' ')] for line in lines]
+    data = [[float(x) for x in line.strip().split()] for line in lines if
+            len(line.strip()) > 0]
+    if is_reverse(args.file_name):
+        data = [[y, x] for [x, y] in data]
     if args.balance_scale or args.scale != 1:
         X, Y = list(zip(*data))
         if args.balance_scale:
@@ -116,7 +132,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compositional Instructions.')
     parser.add_argument('--file_name', type=str,
-                        default='altitude_temperature.txt', help='input file')
+                        default='data/pair0047.txt', help='input file')
     parser.add_argument('--experiments', type=int, default=1000,
                         help='number of experiments')
     parser.add_argument('--balance_scale', action='store_true', default=False,
