@@ -82,29 +82,27 @@ python changing_condition.py
 Scaling
 ```buildoutcfg
 cd experiments/altitude_temperature
-# X and Y has the same scale.
-python altitude_temperature.py --balance_scale
 # Y has 10 times scale of X.
-python altitude_temperature.py --balance_scale --scale 10
+python altitude_temperature.py --scale 10
 # Y has 0.1 times scale of X.
-python altitude_temperature.py --balance_scale --scale 0.1
+python altitude_temperature.py --scale 0.1
 ```
 
 Noise
 ```buildoutcfg
 cd experiments/altitude_temperature
-python altitude_temperature.py --balance_scale --noise 1.0
+python altitude_temperature.py --noise 1.0
 ```
 
 Network architecture
 ```buildoutcfg
 cd experiments/altitude_temperature
 # Two hidden layers
-python altitude_temperature.py --balance_scale --hidden_layers 2
+python altitude_temperature.py --hidden_layers 2
 ```
 
 Multidimensional variable
 ```buildoutcfg
 cd experiments/altitude_temperature
-python altitude_temperature.py --balance_scale --file_name data/pair0055.txt
+python altitude_temperature.py --file_name data/pair0055.txt
 ```

@@ -120,22 +120,21 @@ def read_float(x):
 
 
 def get_special_datasets(lines, file_name):
-    if len(file_name) < 5 or not file_name.startswith('data'):
-        return False
-    key = file_name.split('/')[1][:8]
-    m = {
-        'pair0071': [6, 2, True],
-        'pair0081': [1, 1, False],
-        'pair0082': [1, 1, False],
-        'pair0083': [1, 1, False],
-        'pair0105': [9, 1, True],
-    }
-    if key in m:
-        a, b, is_multidimensional = m[key]
-        data = [[read_float(x) for x in line.strip().split()] for line in
-                lines if len(line.strip()) > 0]
-        data = [[x[:a], x[a:a + b]] for x in data]
-        return data, is_multidimensional
+    if len(file_name) > 5 and file_name.startswith('data/'):
+        m = {
+            'pair0071': [6, 2, True],
+            'pair0081': [1, 1, False],
+            'pair0082': [1, 1, False],
+            'pair0083': [1, 1, False],
+            'pair0105': [9, 1, True],
+        }
+        key = file_name.split('/')[1][:8]
+        if key in m:
+            a, b, is_multidimensional = m[key]
+            data = [[read_float(x) for x in line.strip().split()] for line in
+                    lines if len(line.strip()) > 0]
+            data = [[x[:a], x[a:a + b]] for x in data]
+            return data, is_multidimensional
 
     is_multidimensional = '\t' in lines[0]
     if is_multidimensional:
@@ -155,9 +154,9 @@ def load_data(args):
 
     if is_reverse(args.file_name):
         data = np.flip(data, axis=1)
-    if args.balance_scale or args.scale != 1:
+    if not args.original_scale or args.scale != 1:
         X, Y = list(zip(*data))
-        if args.balance_scale:
+        if not args.original_scale:
             X = scale_variable(X)
             Y = scale_variable(Y)
         if args.scale != 1:
@@ -184,11 +183,11 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compositional Instructions.')
     parser.add_argument('--file_name', type=str,
-                        default='data/pair0052.txt',
+                        default='altitude_temperature.txt',
                         help='input file')
     parser.add_argument('--experiments', type=int, default=1000,
                         help='number of experiments')
-    parser.add_argument('--balance_scale', action='store_true', default=False,
+    parser.add_argument('--original_scale', action='store_true', default=False,
                         help='scale data')
     parser.add_argument('--scale', type=float, default=1,
                         help='scaling')
