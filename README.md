@@ -31,11 +31,38 @@ python3 proposed.py
 python3 plots.py
 ```
 
+## Discussion experiments
+
+Other metrics
+```buildoutcfg
+cd experiments/other_metrics
+python kl_divergence.py
+python grad_l2_norm.py
+```
+
 Robustness
 ```buildoutcfg
 cd experiments/counter_example_discrete
 python baseline.py
 python proposed.py
+```
+
+Temperature and altitude data
+```buildoutcfg
+cd experiments/altitude_temperature
+python altitude_temperature.py
+```
+
+Network architecture
+```buildoutcfg
+cd experiments/altitude_temperature
+python altitude_temperature.py --hidden_layers 2
+```
+
+Noise
+```buildoutcfg
+cd experiments/altitude_temperature
+python altitude_temperature.py --noise 1.0
 ```
 
 ## Appendix experiments
@@ -52,57 +79,4 @@ Causality direction prediction with continuous variable
 cd experiments/direction_prediction_continuous
 python baseline.py
 python proposed.py
-```
-
-Other metrics
-```buildoutcfg
-cd experiments/other_metrics
-python kl_divergence.py
-python grad_l2_norm.py
-```
-
-Real data
-```buildoutcfg
-cd experiments/altitude_temperature
-python altitude_temperature.py
-```
-
-Multi variable
-```buildoutcfg
-cd experiments/multi_variable
-python multi_variable.py
-```
-
-Changing condition
-```buildoutcfg
-cd experiments/changing_condition
-python changing_condition.py
-```
-
-Scaling
-```buildoutcfg
-cd experiments/altitude_temperature
-# Y has 10 times scale of X.
-python altitude_temperature.py --scale 10
-# Y has 0.1 times scale of X.
-python altitude_temperature.py --scale 0.1
-```
-
-Noise
-```buildoutcfg
-cd experiments/altitude_temperature
-python altitude_temperature.py --noise 1.0
-```
-
-Network architecture
-```buildoutcfg
-cd experiments/altitude_temperature
-# Two hidden layers
-python altitude_temperature.py --hidden_layers 2
-```
-
-Multidimensional variable
-```buildoutcfg
-cd experiments/altitude_temperature
-python altitude_temperature.py --file_name data/pair0055.txt
 ```
