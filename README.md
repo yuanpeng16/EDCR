@@ -1,20 +1,11 @@
-# Efficiently and Robustly Disentangle Causality
+# Efficiently Disentangle Causal Representations
 
-This repository is extended from https://github.com/authors-1901-10912/A-Meta-Transfer-Objective-For-Learning-To-Disentangle-Causal-Mechanisms.
-
-## Getting started
-To avoid any conflict with your existing Python setup, and to keep this project self-contained, it is suggested to work in a virtual environment with [`virtualenv`](http://docs.python-guide.org/en/latest/dev/virtualenvs/). To install `virtualenv`:
+## Install dependency
 ```buildoutcfg
-pip install --upgrade virtualenv
-```
-Create a virtual environment, activate it and install the requirements in [`requirements.txt`](requirements.txt).
-```buildoutcfg
-virtualenv venv
-source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Main Experiments
+## Main experiments
 Causality direction prediction
 ```buildoutcfg
 cd experiments/direction_prediction
