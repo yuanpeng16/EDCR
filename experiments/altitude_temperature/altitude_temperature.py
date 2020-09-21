@@ -181,7 +181,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Compositional Instructions.')
+    parser = argparse.ArgumentParser()
     parser.add_argument('--file_name', type=str,
                         default='altitude_temperature.txt',
                         help='input file')
