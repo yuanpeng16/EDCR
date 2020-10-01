@@ -33,7 +33,7 @@ python grad_l2_norm.py
 
 Robustness
 ```buildoutcfg
-cd experiments/counter_example_discrete
+cd experiments/robustness
 python baseline.py
 python proposed.py
 ```
