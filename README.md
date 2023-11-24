@@ -71,3 +71,12 @@ cd experiments/direction_prediction_continuous
 python baseline.py
 python proposed.py
 ```
+
+Robustness and edge cases
+```buildoutcfg
+# Robustness analysis for the proposed method.
+python example.py --experiment_type analysis
+
+# An example of edge cases.
+python example.py --experiment_type example
+```
